@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist</title>
+</head>
+<body>
+    <div>
+        {{.Id}} </br>          
+        {{.Image}}   </br>    
+        {{.Name}}    </br>      
+        {{range .Members}}
+            <div>
+                {{.}}
+            </div><br>
+        {{end}} 
+        {{.CreationDate}} </br> 
+        {{.FirstAlbum}}   </br> 
+        {{.Locations}}    </br> 
+        {{.ConcertDates}} </br> 
+        {{.Relations}}    </br> 
+
+        LOC:</br>
+        {{range .Location.Locations}}
+            <div>
+                {{.}}
+            </div><br>
+        {{end}} 
+        Dates:</br> 
+        {{range .ConcertDate.Dates}}
+            <div>
+                {{.}}
+            </div><br>
+        {{end}} 
+        REL:</br>
+        {{ range $key, $value := .Relation.DatesLocations}}
+            <div>
+                {{$key}}:{{$value}}
+            </div><br>
+        {{end}} 
+    </div>
+</body>
+</html>
