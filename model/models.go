@@ -31,5 +31,3 @@ type Relation struct {
 }
 
 var Artists []Artist
-
-var SingleArtist Artist

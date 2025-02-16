@@ -1,18 +1,38 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color:  #bb0000;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative;
 }
 
+nav {
+    top:0;
+    left: 0;
+    position: fixed;
+    height: 100px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.570);
+    z-index: 1;
+}
+
+.navbar {
+    position: absolute;
+    max-width: 100px;
+    left : 10px;
+    top: 10px;
+}
 .artist-container {
+    position: absolute;
+    top: 150px;
     display: flex;
     justify-content: space-between;
-    background: white;
+    background: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,9 +52,13 @@ body {
     border-radius: 10px;
 }
 
-ul {
+div ul {
     list-style: none;
     padding: 0;
+}
+
+.dates {
+    display: none;
 }
 
 li {
@@ -46,10 +70,7 @@ li {
 
 a {
     text-decoration: none;
-    color: #007BFF;
+    color: #bb0000;
     cursor: pointer;
 }
 
-a:hover {
-    text-decoration: underline;
-}

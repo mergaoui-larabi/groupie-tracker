@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="/static/home.css">
+    <title>Groupie tnacker</title>
+    <link rel="stylesheet" href="/static/css/home.css">
 </head>
 <body>
+    <nav>
+    <a href="/">
+        <img class="navbar" src="https://i.pinimg.com/736x/71/93/55/71935520902428dbbc72eeecfc859f65.jpg" alt="home">
+    </a>
+    </nav>
+    <div class="table">
     {{range .}} <!-- . stand for root of the data structure pased -->
     <a class="artist-card" href="/artist/{{.Id}}">
-         <div>
+        <div>
         <img src="{{.Image}}" alt="{{.Id}}">
-        {{.Name}}
+        <span>{{.Name}}</span>
         </div>
     </a>
     {{end}}
+    </div>
 </body>
 </html>

@@ -3,20 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/artist.css">
-    <script>
-        function toggleDates(locationId) {
-            var element = document.getElementById(locationId);
-            if (element.style.display === "none" || element.style.display === "") {
-                element.style.display = "block";
-            } else {
-                element.style.display = "none";
-            }
-        }
-    </script>
-    <title>Artist</title>
+    <link rel="stylesheet" href="/static/css/artist.css">
+    <script src="/static/js/toggledates.js"></script>
+    <title>Groupie tnacker</title>
 </head>
 <body>
+    <nav>
+        <a href="/">
+            <img class="navbar" src="https://i.pinimg.com/736x/71/93/55/71935520902428dbbc72eeecfc859f65.jpg" alt="home">
+        </a>
+    </nav>
     <div class="artist-container">
         <div class="artist-column">
             <h1>{{.Name}}</h1>
@@ -41,7 +37,7 @@
                 {{range $key, $value := .Relation.DatesLocations}}
                     <li>
                         <a href="javascript:void(0);" onclick="toggleDates('location-{{$key}}')">{{$key}}</a>
-                        <ul id="location-{{$key}}" style="display: none;">
+                        <ul class="dates" id="location-{{$key}}">
                             {{range $value}}
                                 <li>{{.}}</li>
                             {{end}}

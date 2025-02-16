@@ -18,19 +18,14 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	waiter.Add(1)
 	go Fetch(URL1, &model.Artists, &waiter)
 	waiter.Wait()
-
-	temp, err4 := template.ParseFiles("./temp/home.html")
-	if err4 != nil {
-		ErrorTemp(w, err4)
-		return
-	}
+	temp := template.Must(template.ParseFiles("./temp/home.html"))
 	temp.Execute(w, model.Artists)
 }
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	var SingleArtist model.Artist
 	waiter := sync.WaitGroup{}
 	id := r.PathValue("id")
-	// fmt.Println(id)
 	id_int, errAtoi := strconv.Atoi(id)
 	if len(model.Artists) == 0 {
 		waiter.Add(1)
@@ -45,10 +40,10 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	waiter.Add(4)
 
-	go Fetch(URL1+"/"+id, &model.SingleArtist, &waiter)
-	go Fetch(URL2+"/"+id, &model.SingleArtist.Location, &waiter)
-	go Fetch(URL3+"/"+id, &model.SingleArtist.ConcertDate, &waiter)
-	go Fetch(URL4+"/"+id, &model.SingleArtist.Relation, &waiter)
+	go Fetch(URL1+"/"+id, &SingleArtist, &waiter)
+	go Fetch(URL2+"/"+id, &SingleArtist.Location, &waiter)
+	go Fetch(URL3+"/"+id, &SingleArtist.ConcertDate, &waiter)
+	go Fetch(URL4+"/"+id, &SingleArtist.Relation, &waiter)
 
 	waiter.Wait()
 
@@ -57,5 +52,5 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorTemp(w, err4)
 		return
 	}
-	temp.Execute(w, model.SingleArtist)
+	temp.Execute(w, SingleArtist)
 }
