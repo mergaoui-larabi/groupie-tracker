@@ -16,7 +16,7 @@ const URL4 = "https://groupietrackers.herokuapp.com/api/relation"
 func RootHandler(w http.ResponseWriter, r *http.Request) {
 	waiter := sync.WaitGroup{}
 	waiter.Add(1)
-	Fetch(URL1, &model.Artists, &waiter)
+	go Fetch(URL1, &model.Artists, &waiter)
 	waiter.Wait()
 
 	temp, err4 := template.ParseFiles("./temp/home.html")

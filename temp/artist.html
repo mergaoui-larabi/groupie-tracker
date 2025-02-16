@@ -3,42 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/artist.css">
+    <script>
+        function toggleDates(locationId) {
+            var element = document.getElementById(locationId);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
     <title>Artist</title>
 </head>
 <body>
-    <div>
-        {{.Id}} </br>          
-        {{.Image}}   </br>    
-        {{.Name}}    </br>      
-        {{range .Members}}
-            <div>
-                {{.}}
-            </div><br>
-        {{end}} 
-        {{.CreationDate}} </br> 
-        {{.FirstAlbum}}   </br> 
-        {{.Locations}}    </br> 
-        {{.ConcertDates}} </br> 
-        {{.Relations}}    </br> 
-
-        LOC:</br>
-        {{range .Location.Locations}}
-            <div>
-                {{.}}
-            </div><br>
-        {{end}} 
-        Dates:</br> 
-        {{range .ConcertDate.Dates}}
-            <div>
-                {{.}}
-            </div><br>
-        {{end}} 
-        REL:</br>
-        {{ range $key, $value := .Relation.DatesLocations}}
-            <div>
-                {{$key}}:{{$value}}
-            </div><br>
-        {{end}} 
+    <div class="artist-container">
+        <div class="artist-column">
+            <h1>{{.Name}}</h1>
+            <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
+        </div>
+        
+        <div class="artist-column">
+            <p><strong>Creation Date:</strong> {{.CreationDate}}</p>
+            <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+            
+            <h2>Members</h2>
+            <ul>
+                {{range .Members}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
+        </div>
+        
+        <div class="artist-column">
+            <h2>Relations</h2>
+            <ul>
+                {{range $key, $value := .Relation.DatesLocations}}
+                    <li>
+                        <a href="javascript:void(0);" onclick="toggleDates('location-{{$key}}')">{{$key}}</a>
+                        <ul id="location-{{$key}}" style="display: none;">
+                            {{range $value}}
+                                <li>{{.}}</li>
+                            {{end}}
+                        </ul>
+                    </li>
+                {{end}}
+            </ul>
+        </div>
     </div>
 </body>
 </html>

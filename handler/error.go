@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func ErrorTemp(w http.ResponseWriter, err error) {
+func ErrorTemp(w http.ResponseWriter, err any) {
 	temp, errParse := template.ParseFiles("./temp/error.html")
 	if errParse != nil {
 		fmt.Println(errParse)

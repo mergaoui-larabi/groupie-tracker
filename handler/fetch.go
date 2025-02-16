@@ -18,8 +18,6 @@ func Fetch(url string, data any, wg *sync.WaitGroup) error {
 	if err2 != nil {
 		return err2
 	}
-	// fmt.Printf("%#v \n", data)
-	// fmt.Printf("%t \n", data)
 	switch data.(type) {
 	case *[]model.Artist:
 		err := json.Unmarshal(body, data)
@@ -49,6 +47,5 @@ func Fetch(url string, data any, wg *sync.WaitGroup) error {
 	default:
 		return nil
 	}
-	// fmt.Println(data, *&data)
 	return nil
 }

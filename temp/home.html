@@ -8,13 +8,12 @@
 </head>
 <body>
     {{range .}} <!-- . stand for root of the data structure pased -->
-    <a href="/artist/{{.Id}}">
+    <a class="artist-card" href="/artist/{{.Id}}">
          <div>
         <img src="{{.Image}}" alt="{{.Id}}">
         {{.Name}}
         </div>
     </a>
-   
     {{end}}
 </body>
 </html>

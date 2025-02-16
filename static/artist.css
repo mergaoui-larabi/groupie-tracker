@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.artist-container {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+}
+
+.artist-column {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+}
+
+.artist-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #eee;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
