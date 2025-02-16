@@ -7,7 +7,7 @@ import (
 )
 
 func ErrorTemp(w http.ResponseWriter, err any) {
-	temp, errParse := template.ParseFiles("./temp/error.html")
+	temp, errParse := template.ParseFiles("./static/temp/error.html")
 	if errParse != nil {
 		fmt.Println(errParse)
 		return

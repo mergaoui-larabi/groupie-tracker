@@ -6,17 +6,17 @@
     <title>Groupie tnacker</title>
     <link rel="stylesheet" href="/static/css/home.css">
 </head>
-<body>
+<body>  
     <nav>
     <a href="/">
-        <img class="navbar" src="https://i.pinimg.com/736x/71/93/55/71935520902428dbbc72eeecfc859f65.jpg" alt="home">
+        <span class="navbar">GroupieTracker</span>
     </a>
     </nav>
     <div class="table">
     {{range .}} <!-- . stand for root of the data structure pased -->
     <a class="artist-card" href="/artist/{{.Id}}">
         <div>
-        <img src="{{.Image}}" alt="{{.Id}}">
+        <img src="{{.Image}}" alt="{{.Id}}" decoding="async" loading="lazy">
         <span>{{.Name}}</span>
         </div>
     </a>

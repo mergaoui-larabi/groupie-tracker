@@ -14,11 +14,15 @@ const URL3 = "https://groupietrackers.herokuapp.com/api/dates"
 const URL4 = "https://groupietrackers.herokuapp.com/api/relation"
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.Error(w, "hwoaO", 404)
+		return
+	}
 	waiter := sync.WaitGroup{}
 	waiter.Add(1)
 	go Fetch(URL1, &model.Artists, &waiter)
 	waiter.Wait()
-	temp := template.Must(template.ParseFiles("./temp/home.html"))
+	temp := template.Must(template.ParseFiles("./static/temp/home.html"))
 	temp.Execute(w, model.Artists)
 }
 
@@ -26,6 +30,9 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	var SingleArtist model.Artist
 	waiter := sync.WaitGroup{}
 	id := r.PathValue("id")
+	if id == "" {
+		http.Error(w, "hhhhhh", http.StatusBadRequest)
+	}
 	id_int, errAtoi := strconv.Atoi(id)
 	if len(model.Artists) == 0 {
 		waiter.Add(1)
@@ -47,7 +54,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	waiter.Wait()
 
-	temp, err4 := template.ParseFiles("./temp/artist.html")
+	temp, err4 := template.ParseFiles("./static/temp/artist.html")
 	if err4 != nil {
 		ErrorTemp(w, err4)
 		return
