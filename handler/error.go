@@ -1,17 +1,32 @@
 package handler
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 )
 
-func ErrorTemp(w http.ResponseWriter, err any) {
-	temp, errParse := template.ParseFiles("./static/temp/error.html")
-	if errParse != nil {
-		fmt.Println(errParse)
+type errorcontent struct {
+	StatusCode int
+	Message    string
+}
+
+func ErrorTemp(w http.ResponseWriter, code int, errormsg string) {
+	temp, err := template.ParseFiles("./static/temp/error.html")
+
+	if err != nil {
+		http.Error(w, "internal server error : unable to render template", http.StatusInternalServerError)
 		return
 	}
-	temp.Execute(w, err)
 
+	w.WriteHeader(code)
+
+	data := errorcontent{
+		StatusCode: code,
+		Message:    errormsg,
+	}
+	err = temp.Execute(w, data)
+	if err != nil {
+		http.Error(w, "internal server error : unable to render template", http.StatusInternalServerError)
+		return
+	}
 }
