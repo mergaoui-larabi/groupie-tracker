@@ -23,11 +23,16 @@ nav {
 
 .navbar {
     position: absolute;
-    color: red;
+    color: #bb0000;
     font-size: 50px;
     left : 20px;
     top: 20px;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.570);
+    transition: transform 0.2s ease-in-out;
+}
+
+.navbar:hover {
+    transform: scale(1.1);
 }
 
 .artist-container {
