@@ -1,18 +1,22 @@
 package handler
 
 import (
-	"grptrker/model"
 	"html/template"
 	"net/http"
 	"sync"
+
+	"grptrker/model"
 )
 
-const URL1 = "https://groupietrackers.herokuapp.com/api/artists"
-const URL2 = "https://groupietrackers.herokuapp.com/api/locations"
-const URL3 = "https://groupietrackers.herokuapp.com/api/dates"
-const URL4 = "https://groupietrackers.herokuapp.com/api/relation"
+const (
+	URL1 = "https://groupietrackers.herokuapp.com/api/artists"
+	URL2 = "https://groupietrackers.herokuapp.com/api/locations"
+	URL3 = "https://groupietrackers.herokuapp.com/api/dates"
+	URL4 = "https://groupietrackers.herokuapp.com/api/relation"
+)
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
+	var Artists []model.Artist
 	if r.Method != http.MethodGet {
 		ErrorTemp(w, http.StatusBadRequest, "METHOD NOT ALLOWED")
 		return
@@ -23,10 +27,10 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	waiter := sync.WaitGroup{}
 	waiter.Add(1)
-	go Fetch(URL1, &model.Artists, &waiter)
+	go Fetch(URL1, &Artists, &waiter)
 	waiter.Wait()
 	temp := template.Must(template.ParseFiles("./static/temp/home.html"))
-	err := temp.Execute(w, model.Artists)
+	err := temp.Execute(w, Artists)
 	if err != nil {
 		ErrorTemp(w, http.StatusInternalServerError, "INTERNAL SERVER ERROR")
 		return

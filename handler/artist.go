@@ -1,19 +1,21 @@
 package handler
 
 import (
-	"grptrker/model"
 	"html/template"
 	"net/http"
 	"strconv"
 	"sync"
+
+	"grptrker/model"
 )
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	var SingleArtist model.Artist
+	var Artists []model.Artist
 	if r.Method != http.MethodGet {
 		ErrorTemp(w, http.StatusBadRequest, "METHOD NOT ALLOWED")
 		return
 	}
-	var SingleArtist model.Artist
 	waiter := sync.WaitGroup{}
 	id := r.PathValue("id")
 	if id == "" {
@@ -21,13 +23,13 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id_int, errAtoi := strconv.Atoi(id)
-	if len(model.Artists) == 0 {
+	if len(Artists) == 0 {
 		waiter.Add(1)
-		go Fetch(URL1, &model.Artists, &waiter)
+		go Fetch(URL1, &Artists, &waiter)
 		waiter.Wait()
 	}
 
-	if errAtoi != nil || id_int < 1 || id_int > len(model.Artists) {
+	if errAtoi != nil || id_int < 1 || id_int > len(Artists) {
 		ErrorTemp(w, http.StatusNotFound, "NOT FOUND")
 		return
 	}

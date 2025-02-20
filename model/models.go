@@ -30,4 +30,4 @@ type Relation struct {
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
-var Artists []Artist
+
